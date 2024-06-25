@@ -8,6 +8,8 @@
 # Copyright (C) The OpenCRVS Authors located at https://github.com/opencrvs/opencrvs-core/blob/master/AUTHORS.
 ---
 - hosts: localhost
+  vars:
+    ansible_become_password: 'nantenaina2024.'
   tasks:
     - name: Create MongoDB replicate key file locally
       local_action: shell openssl rand -base64 755 > /tmp/mongodb-keyfile
@@ -34,7 +36,7 @@
 
 - hosts: docker-manager-first, docker-workers
   become: yes
-  become_method: sudo  
+  become_method: sudo
   vars:
     crontab_user: root
   tasks:
