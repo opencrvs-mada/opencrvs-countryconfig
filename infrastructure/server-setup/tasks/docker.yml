@@ -67,10 +67,21 @@
     name: python3-docker
     state: present
 
-- name: 'Log into DockerHub'
-  docker_login:
-    username: '{{dockerhub_username}}'
-    password: '{{dockerhub_password}}'
+# - name: 'Log into DockerHub'
+#   docker_login:
+#     registry: registry.gitlab.com
+#     username: '{{dockerhub_username}}'
+#     password: '{{dockerhub_password}}'
+
+- name: Log into Docker registry
+  command: >
+    docker login registry.gitlab.com
+    --username {{ dockerhub_username }}
+    --password {{ dockerhub_password }}
+  environment:
+    DOCKER_CONFIG: /root/.docker
+  register: docker_login_result
+  changed_when: "'Login Succeeded' in docker_login_result.stdout"
 
 - name: 'Setup crontab to clean up docker images'
   cron:
