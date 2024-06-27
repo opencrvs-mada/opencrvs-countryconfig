@@ -347,7 +347,7 @@ configured_rsync -rlD /tmp/docker-compose.yml /tmp/docker-compose.deps.yml $SSH_
 echo "Logging to Dockerhub"
 
 configured_ssh << EOF
-  docker login -u $DOCKER_USERNAME -p $DOCKER_TOKEN
+  docker login -u $DOCKER_USERNAME -p $DOCKER_TOKEN registry.gitlab.com
 EOF
 
 # Setup configuration files and compose file for the deployment domain
